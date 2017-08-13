@@ -71,6 +71,26 @@ public class GameView extends View {
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+//        float ex = event.getX(), ey = event.getY();
+//        BallTask ballTask = new BallTask(ex-ballW/2f,ey-ballH/2f,dx,dy);
+//        timer.schedule(ballTask,500,30);
+//        balls.add(ballTask);
+        return gd.onTouchEvent(event);//false;//.onTouchEvent(event);
+    }
+    
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        if (!isInit) init();
+        for(BallTask ballTask:balls) {
+
+            canvas.drawBitmap(bmpBall[ballTask.intBmp],
+                    ballTask.ballX, ballTask.ballY, paintBall);
+        }
+
+    }
 
     private  class MyGDlistener extends GestureDetector.SimpleOnGestureListener{
         @Override
@@ -103,27 +123,6 @@ public class GameView extends View {
             //Log.i("brad","onDown");
             return true ;//super.onDown(e);
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-//        float ex = event.getX(), ey = event.getY();
-//        BallTask ballTask = new BallTask(ex-ballW/2f,ey-ballH/2f,dx,dy);
-//        timer.schedule(ballTask,500,30);
-//        balls.add(ballTask);
-        return gd.onTouchEvent(event);//false;//.onTouchEvent(event);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (!isInit) init();
-        for(BallTask ballTask:balls) {
-
-            canvas.drawBitmap(bmpBall[ballTask.intBmp],
-                    ballTask.ballX, ballTask.ballY, paintBall);
-        }
-
     }
 
     private  class  BallTask extends TimerTask{
